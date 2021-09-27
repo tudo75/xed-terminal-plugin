@@ -1,0 +1,11 @@
+[Plugin]
+Module=terminal
+IAge=2
+Name=Terminal 
+Version=v0.0.1
+Description=Xed porting of the Gedit terminal plugin
+Comment=Xed porting of the Gedit terminal plugin
+Icon=utilities-terminal
+Authors=Nicola "tudo75" Tudino
+Copyright=Copyright © 2021 Nicola "tudo75" Tudino
+Website=https://github.com/tudo75/xed-terminal-plugin

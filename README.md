@@ -1,2 +1,2 @@
 # xed-terminal-plugin
-Porting of the Code Terminal plugin to Xed
+Porting of the Gedit Terminal plugin to Xed

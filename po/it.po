@@ -1,0 +1,51 @@
+# Italian translations for com.github.tudo75.xed-terminal-plugin package.
+# Copyright (C) 2021 THE com.github.tudo75.xed-terminal-plugin'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.tudo75.xed-terminal-plugin package.
+# Automatically generated, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.tudo75.xed-terminal-plugin\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-27 11:12+0200\n"
+"PO-Revision-Date: 2021-09-23 23:26+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/terminal-plugin.desktop.in:5
+msgid "Terminal "
+msgstr ""
+
+#: data/terminal-plugin.desktop.in:8
+msgid "Xed porting of the Gedit terminal plugin"
+msgstr ""
+
+#: data/terminal-plugin.desktop.in:9
+msgid "utilities-terminal"
+msgstr ""
+
+#: src/terminal.vala:73 src/terminal.vala:74
+msgid "Terminal"
+msgstr ""
+
+#: src/terminal.vala:90
+msgid "C_hange Directory"
+msgstr ""
+
+#. Popup menu
+#: src/terminal.vala:357
+msgid "Copy"
+msgstr ""
+
+#: src/terminal.vala:363
+msgid "Paste"
+msgstr ""
+
+#: src/terminal.vala:423
+msgid "<big>Xed Terminal Plugin Settings</big>"
+msgstr ""
