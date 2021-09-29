@@ -1,2 +1,3 @@
 data/terminal-plugin.desktop.in
+data/com.github.tudo75.xed-terminal-plugin.gschema.xml
 src/terminal.vala

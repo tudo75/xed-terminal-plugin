@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2021 Nicola Tudino
+
+  This file is part of xed-terminal-plugin.
+
+  xed-terminal-plugin is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation, version 3 of the License.
+
+  xed-terminal-plugin is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with xed-terminal-plugin.  If not, see <http://www.gnu.org/licenses/>.
+ 
+  SPDX-License-Identifier: GPL-3.0-only
+-->
+<schemalist gettext-domain="com.github.tudo75.xed-terminal-plugin">
+
+    <enum id='com.github.tudo75.xed-terminal-plugin.Cursor.BlinkMode'>
+        <value nick='system' value='0' />
+        <value nick='on' value='1' />
+        <value nick='off' value='2' />
+    </enum>
+    <enum id='com.github.tudo75.xed-terminal-plugin.Cursor.Shape'>
+        <value nick='block' value='0' />
+        <value nick='ibeam' value='1' />
+        <value nick='underline' value='2' />
+    </enum>
+
+    <schema path="/com/github/tudo75/xed-terminal-plugin/" id="com.github.tudo75.xed-terminal-plugin">
+
+        <!-- settings -->
+
+        <key name="use-custom-settings" type="b">
+            <default>true</default>
+            <summary>Use custom settings</summary>
+        </key>
+        <key name="color-foreground" type="s">
+            <default>'#171421'</default>
+            <summary>Color of text in the terminal</summary>
+            <description>Color of text in the terminal, as a color specification (can be HTML-style hex digits, or a color name such as “red”).</description>
+        </key>
+        <key name="color-background" type="s">
+            <default>'#ffffff'</default>
+            <summary>Color of terminal background</summary>
+            <description>Color of terminal background, as a color specification (can be HTML-style hex digits, or a color name such as “red”).</description>
+        </key>
+        <key name="palette" type="as">
+            <default>['#000000',
+                '#aa0000',
+                '#00aa00',
+                '#aa5500',
+                '#0000aa',
+                '#aa00aa',
+                '#00aaaa',
+                '#aaaaaa',
+                '#555555',
+                '#ff5555',
+                '#55ff55',
+                '#ffff55',
+                '#5555ff',
+                '#ff55ff',
+                '#55ffff',
+                '#ffffff']</default>
+            <summary>Palette for terminal applications</summary>
+        </key>
+        <key name="bold-is-bright" type="b">
+            <default>false</default>
+            <summary>Whether bold is also bright</summary>
+            <description>If true, setting bold on the first 8 colors also switches to their bright variants.</description>
+        </key>
+        <key name="audible-bell" type="b">
+            <default>true</default>
+            <summary>Whether to ring the terminal bell</summary>
+        </key>
+        <key name="scrollback-lines" type="d">
+            <default>10000</default>
+            <summary>Number of lines to keep in scrollback</summary>
+            <description>Number of scrollback lines to keep around. You can scroll back in the terminal by this number of lines; lines that don’t fit in the scrollback are discarded. If scrollback_unlimited is true, this value is ignored.</description>
+        </key>
+        <key name="scrollback-unlimited" type="b">
+            <default>false</default>
+            <summary>Whether an unlimited number of lines should be kept in scrollback</summary>
+            <description>If true, scrollback lines will never be discarded. The scrollback history is stored on disk temporarily, so this may cause the system to run out of disk space if there is a lot of output to the terminal.</description>
+        </key>
+        <key name="scroll-on-keystroke" type="b">
+            <default>true</default>
+            <summary>Whether to scroll to the bottom when a key is pressed</summary>
+            <description>If true, pressing a key jumps the scrollbar to the bottom.</description>
+        </key>
+        <key name="scroll-on-output" type="b">
+            <default>false</default>
+            <summary>Whether to scroll to the bottom when there’s new output</summary>
+            <description>If true, whenever there’s new output the terminal will scroll to the bottom.</description>
+        </key>
+        <key name="cursor-blink-mode" enum="com.github.tudo75.xed-terminal-plugin.Cursor.BlinkMode">
+            <default>'off'</default>
+            <summary>Whether to blink the cursor</summary>
+            <description>The possible values are “system” to use the global cursor blinking settings, or “on” or “off” to set the mode explicitly.</description>
+        </key>
+        <key name="cursor-shape" enum="com.github.tudo75.xed-terminal-plugin.Cursor.Shape">
+            <default>'block'</default>
+            <summary>The cursor appearance</summary>
+        </key>
+        <key name="font" type="s">
+            <default>'Monospace 12'</default>
+            <summary>A Pango font name and size</summary>
+        </key>
+        <!--
+        <key name="allow-bold" type="b">
+            <default>true</default>
+            <summary>Whether to allow the use of the bold attribute in the terminal widget</summary>
+        </key>
+        -->
+        <key name="allow-hyperlink" type="b">
+            <default>true</default>
+            <summary>Whether to make clickable the hyperlinks in the terminal widget</summary>
+        </key>
+        <key name="use-theme-colors" type="b">
+            <default>true</default>
+            <summary>Whether to use the colors from the theme for the terminal widget</summary>
+        </key>
+        <key name="use-system-font" type="b">
+            <default>true</default>
+            <summary>Whether to use the system monospace font</summary>
+        </key>
+
+    </schema>
+
+</schemalist>

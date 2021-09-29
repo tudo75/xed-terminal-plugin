@@ -1,7 +1,10 @@
 # project name and programming language
 project('com.github.tudo75.xed-terminal-plugin', ['vala', 'c'], version: '0.0.1')
 
+assert('com.github.tudo75.xed-terminal-plugin.gschema.xml'==meson.project_name() + '.gschema.xml', 'proj name and gschema file not the same')
+
 i18n = import('i18n')
+gnome = import('gnome')
 
 add_global_arguments('-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()), language:'c')
 
@@ -52,3 +55,4 @@ subdir('po')
 subdir('src')
 subdir('data')
 
+meson.add_install_script('build-aux/post_install.py')
