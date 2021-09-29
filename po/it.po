@@ -7,36 +7,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.tudo75.xed-terminal-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 15:03+0200\n"
-"PO-Revision-Date: 2021-09-23 23:26+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"POT-Creation-Date: 2021-09-29 16:35+0200\n"
+"PO-Revision-Date: 2021-09-29 16:36+0200\n"
+"Last-Translator: Nicola Tudino <tudo75@gmail.com>\n"
+"Language-Team: Nicola Tudino <tudo75@gmail.com>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: data/com.github.tudo75.xed-terminal-plugin.gschema."
+"xml\n"
+"X-Poedit-SearchPath-1: data/terminal-plugin.desktop.in\n"
+"X-Poedit-SearchPath-2: src/terminal.vala\n"
 
 #: data/terminal-plugin.desktop.in:5
-msgid "Terminal "
-msgstr ""
+msgid "_Terminal"
+msgstr "Terminale"
 
 #: data/terminal-plugin.desktop.in:8
 msgid "Xed porting of the Gedit terminal plugin"
-msgstr ""
+msgstr "Porting per Xed del plugin terminal di Gedit"
 
 #: data/terminal-plugin.desktop.in:9
 msgid "utilities-terminal"
 msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:40
-#: src/terminal.vala:532
+#: src/terminal.vala:546
 msgid "Use custom settings"
-msgstr ""
+msgstr "Usa impostazioni personalizzate"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:44
 msgid "Color of text in the terminal"
-msgstr ""
+msgstr "Colore del testo nel teminale"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:45
 msgid ""
@@ -46,7 +52,7 @@ msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:49
 msgid "Color of terminal background"
-msgstr ""
+msgstr "Colore di sfondo del terminale"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:50
 msgid ""
@@ -56,11 +62,11 @@ msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:69
 msgid "Palette for terminal applications"
-msgstr ""
+msgstr "Tavolozza dei colori del terminale"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:73
 msgid "Whether bold is also bright"
-msgstr ""
+msgstr "Mostra testo grassetto con colori brillanti"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:74
 msgid ""
@@ -70,11 +76,11 @@ msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:78
 msgid "Whether to ring the terminal bell"
-msgstr ""
+msgstr "Se la campanella del terminale deve squillare"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:82
 msgid "Number of lines to keep in scrollback"
-msgstr ""
+msgstr "Numero di linee da mantenere per lo scorrimento all'indietro"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:83
 msgid ""
@@ -86,6 +92,8 @@ msgstr ""
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:87
 msgid "Whether an unlimited number of lines should be kept in scrollback"
 msgstr ""
+"Se  si deve mantenere un numero di linee illimitato per lo scorrimento "
+"all'indietro"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:88
 msgid ""
@@ -96,7 +104,7 @@ msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:92
 msgid "Whether to scroll to the bottom when a key is pressed"
-msgstr ""
+msgstr "Se il terminale deve scorrere alla pressione dei tasti"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:93
 msgid "If true, pressing a key jumps the scrollbar to the bottom."
@@ -104,7 +112,7 @@ msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:97
 msgid "Whether to scroll to the bottom when there’s new output"
-msgstr ""
+msgstr "Se il terminale deve scorrere in contemporanea con il testo generato"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:98
 msgid ""
@@ -113,7 +121,7 @@ msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:102
 msgid "Whether to blink the cursor"
-msgstr ""
+msgstr "Se il cursore deve lampeggire"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:103
 msgid ""
@@ -123,163 +131,179 @@ msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:107
 msgid "The cursor appearance"
-msgstr ""
+msgstr "Aspetto del cursore"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:111
 msgid "A Pango font name and size"
-msgstr ""
+msgstr "Nome e dimensione di un carattere secondo il formato di Pango"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:121
 msgid "Whether to make clickable the hyperlinks in the terminal widget"
-msgstr ""
+msgstr "Se i collegamenti ipertestuali nel terminale possono essere cliccabili"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:125
 msgid "Whether to use the colors from the theme for the terminal widget"
-msgstr ""
+msgstr "Se usare i colori di sistema per il terminale"
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:129
 msgid "Whether to use the system monospace font"
-msgstr ""
+msgstr "Se usare il carattere di sitema"
 
-#: src/terminal.vala:73 src/terminal.vala:74
+#: src/terminal.vala:66 src/terminal.vala:67
 msgid "Terminal"
-msgstr ""
+msgstr "Terminale"
 
-#: src/terminal.vala:90
+#: src/terminal.vala:83
 msgid "C_hange Directory"
-msgstr ""
+msgstr "Cambia cartella di lavoro"
 
 #. Popup menu
-#: src/terminal.vala:435
+#: src/terminal.vala:428
 msgid "Copy"
-msgstr ""
+msgstr "Copia"
 
-#: src/terminal.vala:441
+#: src/terminal.vala:434
 msgid "Paste"
-msgstr ""
+msgstr "Incolla"
 
-#: src/terminal.vala:518
+#: src/terminal.vala:511
 msgid "<big>Xed Terminal Plugin Settings</big>"
-msgstr ""
+msgstr "<big>Impostazioni di Xed Terminal Plugin</big>"
 
-#: src/terminal.vala:527
+#: src/terminal.vala:520
+msgid "<b>Instructions</b>"
+msgstr "<b>Istruzioni</b>"
+
+#: src/terminal.vala:525
+msgid "There are active accelerators for the copy/paste commands in terminal:"
+msgstr "Ci sono acceleratori attivi per il copia/incolla nel terminale:"
+
+#: src/terminal.vala:530
+msgid "Copy -> Ctrl + Shif + c"
+msgstr "Copia -> Ctrl + Shif + c"
+
+#: src/terminal.vala:535
+msgid "Paste -> Ctrl + Shif + v"
+msgstr "Incolla -> Ctrl + Shif + v"
+
+#: src/terminal.vala:541
 msgid "<b>Main</b>"
-msgstr ""
+msgstr "<b>Generali</b>"
 
-#: src/terminal.vala:538
+#: src/terminal.vala:552
 msgid "Allow cliccable hyperlinks"
-msgstr ""
+msgstr "Permetti collegamenti"
 
-#: src/terminal.vala:545
+#: src/terminal.vala:559
 msgid "<b>Font</b>"
-msgstr ""
+msgstr "<b>Carattere</b>"
 
-#: src/terminal.vala:550
+#: src/terminal.vala:564
 msgid "Custom font"
-msgstr ""
+msgstr "Carattere personalizzato"
 
-#: src/terminal.vala:558
+#: src/terminal.vala:572
 msgid "Choose a terminal font"
-msgstr ""
+msgstr "Scegli un tipo di carattere per il terminale"
 
-#: src/terminal.vala:573
+#: src/terminal.vala:587
 msgid "<b>Cursor</b>"
-msgstr ""
+msgstr "<b>Cursore</b>"
 
-#: src/terminal.vala:578
+#: src/terminal.vala:592
 msgid "Cursor shape"
-msgstr ""
+msgstr "Forma del cursore"
 
-#: src/terminal.vala:582
+#: src/terminal.vala:596
 msgid "Block"
-msgstr ""
+msgstr "Blocco"
 
-#: src/terminal.vala:582
+#: src/terminal.vala:596
 msgid "IBeam"
-msgstr ""
+msgstr "Barra verticale"
 
-#: src/terminal.vala:582
+#: src/terminal.vala:596
 msgid "Underline"
-msgstr ""
+msgstr "Trattino basso"
 
-#: src/terminal.vala:589
+#: src/terminal.vala:603
 msgid "Cursor blink mode"
-msgstr ""
+msgstr "Con cursore lampeggiante"
 
-#: src/terminal.vala:593
+#: src/terminal.vala:607
 msgid "System"
-msgstr ""
+msgstr "Impostazione di sistema"
 
-#: src/terminal.vala:593
+#: src/terminal.vala:607
 msgid "On"
-msgstr ""
+msgstr "Attivo"
 
-#: src/terminal.vala:593
+#: src/terminal.vala:607
 msgid "Off"
-msgstr ""
+msgstr "Disattivo"
 
-#: src/terminal.vala:601
+#: src/terminal.vala:615
 msgid "<b>Notification</b>"
-msgstr ""
+msgstr "<b>Notifiche</b>"
 
-#: src/terminal.vala:606
+#: src/terminal.vala:620
 msgid "Terminal bell"
-msgstr ""
+msgstr "Campanella del terminale"
 
-#: src/terminal.vala:613
+#: src/terminal.vala:627
 msgid "<b>Colors</b>"
-msgstr ""
+msgstr "<b>Colori</b>"
 
-#: src/terminal.vala:618
+#: src/terminal.vala:632
 msgid "Show bold text in bright colors"
-msgstr ""
+msgstr "Mostra testo grassetto con colori brillanti"
 
-#: src/terminal.vala:624
+#: src/terminal.vala:638
 msgid "Use theme colors"
-msgstr ""
+msgstr "Utilizza i colori del tema"
 
-#: src/terminal.vala:637
+#: src/terminal.vala:651
 msgid "<b>Scrolling</b>"
-msgstr ""
+msgstr "<b>Scorrimento</b>"
 
-#: src/terminal.vala:642
+#: src/terminal.vala:656
 msgid "Scroll on keystroke"
-msgstr ""
+msgstr "Scorri durante la battitura dei tasti"
 
-#: src/terminal.vala:648
+#: src/terminal.vala:662
 msgid "Scroll on output"
-msgstr ""
+msgstr "Scorri in presenza di output"
 
-#: src/terminal.vala:655
+#: src/terminal.vala:669
 msgid "Scrollback limit"
-msgstr ""
+msgstr "Limita lo scorrimento"
 
-#: src/terminal.vala:688
+#: src/terminal.vala:702
 msgid "Select background color"
-msgstr ""
+msgstr "Seleziona il colore di sfondo"
 
 #. this.settings.bind ("use-custom-settings", bg_color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
-#: src/terminal.vala:700
+#: src/terminal.vala:714
 msgid "Background"
-msgstr ""
+msgstr "Sfondo"
 
-#: src/terminal.vala:709
+#: src/terminal.vala:723
 msgid "Select foreground color"
-msgstr ""
+msgstr "Seleziona il colore di primo piano"
 
 #. this.settings.bind ("use-custom-settings", fg_color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
-#: src/terminal.vala:721
+#: src/terminal.vala:735
 msgid "Foreground"
-msgstr ""
+msgstr "Primo piano"
 
-#: src/terminal.vala:739
+#: src/terminal.vala:753
 msgid "Select color"
-msgstr ""
+msgstr "Seleziona il colore"
 
-#: src/terminal.vala:757
+#: src/terminal.vala:771
 msgid "Dark colors"
-msgstr ""
+msgstr "Colori scuri"
 
-#: src/terminal.vala:759
+#: src/terminal.vala:773
 msgid "Light colors"
-msgstr ""
+msgstr "Colori chiari"
