@@ -60,14 +60,7 @@ namespace TerminalPlugin {
             this.panel.show ();
 
             Xed.Panel bottom = this.window.get_bottom_panel ();
-            /*
-            int margin = 5;
-            bottom.set_margin_top (margin);
-            bottom.set_margin_bottom (margin);
-            bottom.set_margin_start (margin);
-            bottom.set_margin_end (margin);
-            bottom.add_item (this.panel, _("Terminal"), "utilities-terminal");
-            */
+
             Gtk.Notebook notebook = new Gtk.Notebook ();
             notebook.set_tab_pos (Gtk.PositionType.BOTTOM);
             notebook.append_page (this.panel, new Gtk.Label (_("Terminal")));
@@ -523,6 +516,27 @@ namespace TerminalPlugin {
             main_grid.attach (title_lbl, 0, grid_row, 2, 1);
             grid_row++;
 
+            Gtk.Label instrucion_title_lbl = new Gtk.Label ("");
+            instrucion_title_lbl.set_markup (_("<b>Instructions</b>"));
+            instrucion_title_lbl.set_halign (Gtk.Align.START);
+            main_grid.attach (instrucion_title_lbl, 0, grid_row, 1, 1);
+            grid_row++;
+
+            Gtk.Label instrucions_lbl = new Gtk.Label (_("There are active accelerators for the copy/paste commands in terminal:"));
+            instrucions_lbl.set_halign (Gtk.Align.START);
+            main_grid.attach (instrucions_lbl, 1, grid_row, 1, 1);
+            grid_row++;
+
+            Gtk.Label instrucions_copy_lbl = new Gtk.Label (_("Copy -> Ctrl + Shif + c"));
+            instrucions_copy_lbl.set_halign (Gtk.Align.START);
+            main_grid.attach (instrucions_copy_lbl, 1, grid_row, 1, 1);
+            grid_row++;
+
+            Gtk.Label instrucions_paste_lbl = new Gtk.Label (_("Paste -> Ctrl + Shif + v"));
+            instrucions_paste_lbl.set_halign (Gtk.Align.START);
+            main_grid.attach (instrucions_paste_lbl, 1, grid_row, 1, 1);
+            grid_row++;
+            
             Gtk.Label main_lbl = new Gtk.Label ("");
             main_lbl.set_markup (_("<b>Main</b>"));
             main_lbl.set_halign (Gtk.Align.START);
