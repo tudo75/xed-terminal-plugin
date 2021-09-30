@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.tudo75.xed-terminal-plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-29 16:35+0200\n"
+"POT-Creation-Date: 2021-09-30 02:14+0200\n"
 "PO-Revision-Date: 2021-09-29 16:13+0200\n"
 "Last-Translator: Nicola Tudino <tudo75@gmail.com>\n"
 "Language-Team: none\n"
@@ -31,7 +31,7 @@ msgid "utilities-terminal"
 msgstr ""
 
 #: data/com.github.tudo75.xed-terminal-plugin.gschema.xml:40
-#: src/terminal.vala:546
+#: src/terminal.vala:579
 msgid "Use custom settings"
 msgstr ""
 
@@ -142,161 +142,171 @@ msgstr ""
 msgid "Whether to use the system monospace font"
 msgstr ""
 
-#: src/terminal.vala:66 src/terminal.vala:67
+#: src/terminal.vala:67 src/terminal.vala:69 src/terminal.vala:108
 msgid "Terminal"
 msgstr ""
 
-#: src/terminal.vala:83
-msgid "C_hange Directory"
+#: src/terminal.vala:87
+msgid "Change Directory"
 msgstr ""
 
+#: src/terminal.vala:93
+#, fuzzy
+msgid "Close Terminal"
+msgstr "Terminal"
+
+#: src/terminal.vala:99
+#, fuzzy
+msgid "New Terminal"
+msgstr "Terminal"
+
 #. Popup menu
-#: src/terminal.vala:428
+#: src/terminal.vala:461
 msgid "Copy"
 msgstr ""
 
-#: src/terminal.vala:434
+#: src/terminal.vala:467
 msgid "Paste"
 msgstr ""
 
-#: src/terminal.vala:511
+#: src/terminal.vala:544
 msgid "<big>Xed Terminal Plugin Settings</big>"
 msgstr ""
 
-#: src/terminal.vala:520
+#: src/terminal.vala:553
 msgid "<b>Instructions</b>"
 msgstr ""
 
-#: src/terminal.vala:525
+#: src/terminal.vala:558
 msgid "There are active accelerators for the copy/paste commands in terminal:"
 msgstr ""
 
-#: src/terminal.vala:530
+#: src/terminal.vala:563
 msgid "Copy -> Ctrl + Shif + c"
 msgstr ""
 
-#: src/terminal.vala:535
+#: src/terminal.vala:568
 msgid "Paste -> Ctrl + Shif + v"
 msgstr ""
 
-#: src/terminal.vala:541
+#: src/terminal.vala:574
 msgid "<b>Main</b>"
 msgstr ""
 
-#: src/terminal.vala:552
+#: src/terminal.vala:585
 msgid "Allow cliccable hyperlinks"
 msgstr ""
 
-#: src/terminal.vala:559
+#: src/terminal.vala:592
 msgid "<b>Font</b>"
 msgstr ""
 
-#: src/terminal.vala:564
+#: src/terminal.vala:597
 msgid "Custom font"
 msgstr ""
 
-#: src/terminal.vala:572
+#: src/terminal.vala:605
 msgid "Choose a terminal font"
 msgstr ""
 
-#: src/terminal.vala:587
+#: src/terminal.vala:620
 msgid "<b>Cursor</b>"
 msgstr ""
 
-#: src/terminal.vala:592
+#: src/terminal.vala:625
 msgid "Cursor shape"
 msgstr ""
 
-#: src/terminal.vala:596
+#: src/terminal.vala:629
 msgid "Block"
 msgstr ""
 
-#: src/terminal.vala:596
+#: src/terminal.vala:629
 msgid "IBeam"
 msgstr ""
 
-#: src/terminal.vala:596
+#: src/terminal.vala:629
 msgid "Underline"
 msgstr ""
 
-#: src/terminal.vala:603
+#: src/terminal.vala:636
 msgid "Cursor blink mode"
 msgstr ""
 
-#: src/terminal.vala:607
+#: src/terminal.vala:640
 msgid "System"
 msgstr ""
 
-#: src/terminal.vala:607
+#: src/terminal.vala:640
 msgid "On"
 msgstr ""
 
-#: src/terminal.vala:607
+#: src/terminal.vala:640
 msgid "Off"
 msgstr ""
 
-#: src/terminal.vala:615
+#: src/terminal.vala:648
 msgid "<b>Notification</b>"
 msgstr ""
 
-#: src/terminal.vala:620
+#: src/terminal.vala:653
 msgid "Terminal bell"
 msgstr ""
 
-#: src/terminal.vala:627
+#: src/terminal.vala:660
 msgid "<b>Colors</b>"
 msgstr ""
 
-#: src/terminal.vala:632
+#: src/terminal.vala:665
 msgid "Show bold text in bright colors"
 msgstr ""
 
-#: src/terminal.vala:638
+#: src/terminal.vala:671
 msgid "Use theme colors"
 msgstr ""
 
-#: src/terminal.vala:651
+#: src/terminal.vala:684
 msgid "<b>Scrolling</b>"
 msgstr ""
 
-#: src/terminal.vala:656
+#: src/terminal.vala:689
 msgid "Scroll on keystroke"
 msgstr ""
 
-#: src/terminal.vala:662
+#: src/terminal.vala:695
 msgid "Scroll on output"
 msgstr ""
 
-#: src/terminal.vala:669
+#: src/terminal.vala:702
 msgid "Scrollback limit"
 msgstr ""
 
-#: src/terminal.vala:702
+#: src/terminal.vala:735
 msgid "Select background color"
 msgstr ""
 
 #. this.settings.bind ("use-custom-settings", bg_color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
-#: src/terminal.vala:714
+#: src/terminal.vala:747
 msgid "Background"
 msgstr ""
 
-#: src/terminal.vala:723
+#: src/terminal.vala:756
 msgid "Select foreground color"
 msgstr ""
 
 #. this.settings.bind ("use-custom-settings", fg_color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
-#: src/terminal.vala:735
+#: src/terminal.vala:768
 msgid "Foreground"
 msgstr ""
 
-#: src/terminal.vala:753
+#: src/terminal.vala:786
 msgid "Select color"
 msgstr ""
 
-#: src/terminal.vala:771
+#: src/terminal.vala:804
 msgid "Dark colors"
 msgstr ""
 
-#: src/terminal.vala:773
+#: src/terminal.vala:806
 msgid "Light colors"
 msgstr ""

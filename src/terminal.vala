@@ -42,8 +42,9 @@ namespace TerminalPlugin {
     */
     public class TerminalWindow : Xed.WindowActivatable, Peas.ExtensionBase {
         
-        private XedTerminalPanel panel;
+        private Gtk.Notebook notebook;
         private string doc_path;
+        private int terminals = 1;
 
         public TerminalWindow () {
             GLib.Object ();
@@ -55,22 +56,24 @@ namespace TerminalPlugin {
 
         public void activate () {
             print ("TerminalWindow activated\n");
-            this.panel = new XedTerminalPanel ();
-            this.panel.populate_popup.connect (this.on_panel_populate_popup);
-            this.panel.show ();
+            XedTerminalPanel panel = new XedTerminalPanel ();
+            panel.populate_popup.connect (this.on_panel_populate_popup);
+            panel.show ();
 
             Xed.Panel bottom = this.window.get_bottom_panel ();
 
-            Gtk.Notebook notebook = new Gtk.Notebook ();
-            notebook.set_tab_pos (Gtk.PositionType.BOTTOM);
-            notebook.append_page (this.panel, new Gtk.Label (_("Terminal")));
-            bottom.add_item (notebook, _("Terminal"), "utilities-terminal");
+            this.notebook = new Gtk.Notebook ();
+            this.notebook.set_tab_pos (Gtk.PositionType.BOTTOM);
+            this.notebook.append_page (panel, new Gtk.Label (_("Terminal") + " " + this.terminals.to_string ()));
+            this.terminals++;
+            bottom.add_item (this.notebook, _("Terminal"), "utilities-terminal");
+            bottom.set_size_request (-1, 150);
         }
 
         public void deactivate () {
             print ("TerminalWindow deactivated\n");
             Xed.Panel bottom = this.window.get_bottom_panel ();
-            bottom.remove_item (this.panel);
+            bottom.remove_item (this.notebook);
         }
 
         public void update_state () {
@@ -80,16 +83,46 @@ namespace TerminalPlugin {
         private void on_panel_populate_popup (XedTerminalPanel panel, Gtk.Menu menu) {
             menu.prepend (new Gtk.SeparatorMenuItem ());
             doc_path = this.get_active_document_directory ();
-            Gtk.MenuItem item = new Gtk.MenuItem.with_mnemonic (_("C_hange Directory"));
+            Gtk.MenuItem item = new Gtk.MenuItem ();
+            item.set_label (_("Change Directory"));
             item.activate.connect (this.on_change_directory);
             item.set_sensitive (doc_path != "");
             menu.prepend (item);
+
+            Gtk.MenuItem close_terminal = new Gtk.MenuItem ();
+            close_terminal.set_label (_("Close Terminal"));
+            close_terminal.activate.connect (this.on_close_terminal);
+            close_terminal.set_sensitive (this.notebook.get_n_pages () > 1);
+            menu.prepend (close_terminal);
+
+            Gtk.MenuItem add_terminal = new Gtk.MenuItem ();
+            add_terminal.set_label (_("New Terminal"));
+            add_terminal.activate.connect (this.on_new_terminal);
+            menu.prepend (add_terminal);
+        }
+
+        private void on_new_terminal () {
+            XedTerminalPanel panel = new XedTerminalPanel ();
+            panel.populate_popup.connect (this.on_panel_populate_popup);
+            panel.show ();
+            this.notebook.append_page (panel, new Gtk.Label (_("Terminal") + " " + this.terminals.to_string ()));
+            this.terminals++;
+        }
+
+        private void on_close_terminal () {
+            if (this.notebook.get_n_pages () > 1) {
+                int cur_page = this.notebook.get_current_page ();
+                XedTerminalPanel panel = (XedTerminalPanel) this.notebook.get_nth_page (cur_page);
+                this.notebook.remove_page (cur_page);
+                panel.destroy ();
+            }
         }
 
         private void on_change_directory (Gtk.MenuItem item) {
             doc_path = doc_path.replace ("\\", "\\\\").replace ("\"", "\\\"");
-            this.panel.get_terminal ().feed_child(("cd \"%s\"\n").printf (doc_path).data);
-            this.panel.get_terminal ().grab_focus();
+            XedTerminalPanel panel = (XedTerminalPanel) this.notebook.get_nth_page (this.notebook.get_current_page ());
+            panel.get_terminal ().feed_child(("cd \"%s\"\n").printf (doc_path).data);
+            panel.get_terminal ().grab_focus();
         }
 
         private string get_active_document_directory () {
@@ -113,7 +146,7 @@ namespace TerminalPlugin {
         
         public XedTerminal () {
             this.set_size (this.get_column_count (), 5);
-            this.set_size_request (200, 50);
+            this.set_size_request (-1, 150);
 
             this.profile_settings = this.get_profile_settings ();
 
