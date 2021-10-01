@@ -6,6 +6,9 @@ Porting of the Gedit Terminal plugin to Xed
 
 To interface with xed some libraries are needed:
 
+* meson
+* ninja-build
+* valac
 * libpeas-1.0-dev
 * libpeas-gtk-1.0
 * libglib2.0-dev
