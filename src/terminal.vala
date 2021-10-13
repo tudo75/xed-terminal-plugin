@@ -66,6 +66,7 @@ namespace TerminalPlugin {
             this.notebook.set_tab_pos (Gtk.PositionType.BOTTOM);
             this.notebook.append_page (panel, new Gtk.Label (_("Terminal") + " " + this.terminals.to_string ()));
             this.terminals++;
+            this.notebook.show_all ();
             bottom.add_item (this.notebook, _("Terminal"), "utilities-terminal");
             bottom.set_size_request (-1, 150);
         }
@@ -146,7 +147,6 @@ namespace TerminalPlugin {
         
         public XedTerminal () {
             this.set_size (this.get_column_count (), 5);
-            this.set_size_request (-1, 150);
 
             this.profile_settings = this.get_profile_settings ();
 
@@ -793,7 +793,6 @@ namespace TerminalPlugin {
                     this.settings.set_strv ("palette", tmp_palette);
                 });
                 this.settings.bind ("use-theme-colors", color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY | GLib.SettingsBindFlags.INVERT_BOOLEAN);
-                // this.settings.bind ("use-custom-settings", color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
                 if (i < 8) {
                     grid.attach (color_btn, i, 0, 1, 1);
                 } else {
