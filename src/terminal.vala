@@ -55,7 +55,7 @@ namespace TerminalPlugin {
         }
 
         public void activate () {
-            print ("TerminalWindow activated\n");
+            // print ("TerminalWindow activated\n");
             XedTerminalPanel panel = new XedTerminalPanel ();
             panel.populate_popup.connect (this.on_panel_populate_popup);
             panel.show ();
@@ -72,13 +72,13 @@ namespace TerminalPlugin {
         }
 
         public void deactivate () {
-            print ("TerminalWindow deactivated\n");
+            // print ("TerminalWindow deactivated\n");
             Xed.Panel bottom = this.window.get_bottom_panel ();
             bottom.remove_item (this.notebook);
         }
 
         public void update_state () {
-            print ("TerminalWindow update_state\n");
+            // print ("TerminalWindow update_state\n");
         }
 
         private void on_panel_populate_popup (XedTerminalPanel panel, Gtk.Menu menu) {
