@@ -50,3 +50,10 @@ Run <code>./uninstall.sh</code> if you installed through meson system or if you 
 Based on this Gedit Plugin
 
 https://gitlab.gnome.org/GNOME/gedit-plugins/-/tree/master/plugins/terminal
+
+## My Xed Plugins
+* xed-terminal-plugin https://github.com/tudo75/xed-terminal-plugin
+* xed-codecomment-plugin https://github.com/tudo75/xed-codecomment-plugin
+* xed-sessionsaver-plugin https://github.com/tudo75/xed-sessionsaver-plugin
+* xed-restore-tabs-plugin https://github.com/tudo75/xed-restore-tabs-plugin
+* xed-plantuml-plugin https://github.com/tudo75/xed-plantuml-plugin 
