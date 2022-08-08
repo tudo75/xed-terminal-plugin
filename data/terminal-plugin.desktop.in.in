@@ -2,7 +2,7 @@
 Module=terminal
 IAge=2
 Name=_Terminal
-Version=v@VERSION@
+Version=v@PROJECT_VERSION@
 Description=Xed porting of the Gedit terminal plugin
 Comment=Xed porting of the Gedit terminal plugin
 Icon=utilities-terminal

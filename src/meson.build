@@ -1,9 +1,3 @@
-conf = configuration_data()
-conf.set('prefix', get_option('prefix'))
-conf.set('libdir', get_option ('libdir'))
-conf.set('PROJECT_NAME', 'com.github.tudo75.xed-terminal-plugin')
-conf.set('PROJECT_VERSION', meson.project_version())
-
 pluginsdatadir = join_paths(datadir, 'xed', 'plugins')
 pluginslibdir = join_paths(libdir, 'xed', 'plugins')
 

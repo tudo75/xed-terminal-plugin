@@ -1,5 +1,5 @@
 # project name and programming language
-project('com.github.tudo75.xed-terminal-plugin', ['vala', 'c'], version: '0.1.0')
+project('com.github.tudo75.xed-terminal-plugin', ['vala', 'c'], version: '0.1.1')
 
 assert('com.github.tudo75.xed-terminal-plugin.gschema.xml'==meson.project_name() + '.gschema.xml', 'proj name and gschema file not the same')
 
@@ -22,6 +22,12 @@ vapidir = get_option('datadir') / 'vala' / 'vapi'
 vapi_dir = meson.current_source_dir() / 'vapi'
 add_project_arguments(['--vapidir', vapi_dir], language: 'vala')
 add_project_arguments(['--enable-experimental'], language: 'vala')
+
+conf = configuration_data()
+conf.set('prefix', get_option('prefix'))
+conf.set('libdir', get_option ('libdir'))
+conf.set('PROJECT_NAME', 'com.github.tudo75.xed-terminal-plugin')
+conf.set('PROJECT_VERSION', meson.project_version())
 
 dependencies = [
 	dependency('gtk+-3.0', version: '>= 3.20'),
