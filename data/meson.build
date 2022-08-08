@@ -1,10 +1,7 @@
-conf_data = configuration_data()
-conf_data.set('VERSION', meson.project_version())
-
 config_header = configure_file(
     input: 'terminal-plugin.desktop.in.in',
     output: 'terminal-plugin.desktop.in',
-    configuration: conf_data
+    configuration: conf
 )
 
 i18n.merge_file(
