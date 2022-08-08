@@ -4,6 +4,7 @@ tests
 *.pot
 *.mo
 *.deb
+*.ddeb
 
 build
 config.*
@@ -18,6 +19,13 @@ stamp-h1
 *.pc
 .tarball-version
 .version
+debian/build
+debian/tmp
+debian/xed-terminal-plugin
+debian/.debhelper
+debian/xed-terminal-plugin.substvars
+debian/xed-terminal-plugin.debhelper.log
+debian/files
 
 *.gcda
 *.gcno
