@@ -27,8 +27,7 @@ namespace TerminalPlugin {
     */
     [CCode (cname="G_MODULE_EXPORT peas_register_types")]
     [ModuleInit]
-    public void peas_register_types (TypeModule module) 
-    {
+    public void peas_register_types (TypeModule module) {
         var objmodule = module as Peas.ObjectModule;
 
         // Register my plugin extension
@@ -36,12 +35,12 @@ namespace TerminalPlugin {
         // Register my config dialog
         objmodule.register_extension_type (typeof (PeasGtk.Configurable), typeof (TerminalPlugin.ConfigTerminal));
     }
-    
+
     /*
     * WindowActivatable
     */
     public class TerminalWindow : Xed.WindowActivatable, Peas.ExtensionBase {
-        
+
         private Gtk.Notebook notebook;
         private string doc_path;
         private int terminals = 1;
@@ -122,8 +121,8 @@ namespace TerminalPlugin {
         private void on_change_directory (Gtk.MenuItem item) {
             doc_path = doc_path.replace ("\\", "\\\\").replace ("\"", "\\\"");
             XedTerminalPanel panel = (XedTerminalPanel) this.notebook.get_nth_page (this.notebook.get_current_page ());
-            panel.get_terminal ().feed_child(("cd \"%s\"\n").printf (doc_path).data);
-            panel.get_terminal ().grab_focus();
+            panel.get_terminal ().feed_child (("cd \"%s\"\n").printf (doc_path).data);
+            panel.get_terminal ().grab_focus ();
         }
 
         private string get_active_document_directory () {
@@ -140,30 +139,30 @@ namespace TerminalPlugin {
     }
 
     public class XedTerminal : Vte.Terminal {
-        
+
         private GLib.KeyFile profile_settings;
         private GLib.Pid child_pid;
         private GLib.Settings settings;
-        
+
         public XedTerminal () {
             this.set_size (this.get_column_count (), 5);
 
             this.profile_settings = this.get_profile_settings ();
 
             this.settings = new GLib.Settings ("com.github.tudo75.xed-terminal-plugin");
-            
+
             if (this.settings.get_boolean ("use-custom-settings")) {
                 this.vte_settings_config ();
             } else {
                 this.vte_keyfile_config ();
             }
-            
+
             try {
                 this.spawn_sync (
-                    Vte.PtyFlags.DEFAULT, 
+                    Vte.PtyFlags.DEFAULT,
                     null,
-                    {Vte.get_user_shell ()}, 
-                    null, 
+                    {Vte.get_user_shell ()},
+                    null,
                     GLib.SpawnFlags.SEARCH_PATH,
                     null,
                     out child_pid);
@@ -191,25 +190,25 @@ namespace TerminalPlugin {
             if (!this.settings.get_boolean ("use-theme-colors")) {
                 Gdk.RGBA fg = Gdk.RGBA ();
                 fg.parse (this.settings.get_string ("color-foreground"));
-                Gdk.RGBA bg =  Gdk.RGBA ();
+                Gdk.RGBA bg = Gdk.RGBA ();
                 bg.parse (this.settings.get_string ("color-background"));
                 Gdk.RGBA[] palette = new Gdk.RGBA[16];
                 string[] palette_colors = this.settings.get_strv ("palette");
                 for (int i = 0; i < palette_colors.length; i++) {
-                    var rgba = Gdk.RGBA();
+                    var rgba = Gdk.RGBA ();
                     rgba.parse (palette_colors[i]);
                     palette[i] = rgba;
                 }
                 this.set_colors (fg, bg, palette);
             }
-            
+
             this.set_bold_is_bright (this.settings.get_boolean ("bold-is-bright"));
             this.set_audible_bell (this.settings.get_boolean ("audible-bell"));
             if (this.settings.get_boolean ("scrollback-unlimited")) {
                 this.set_scrollback_lines (-1);
-            } else  {
+            } else {
                 this.set_scrollback_lines ((long) this.settings.get_double ("scrollback-lines"));
-            }            
+            }
             this.set_scroll_on_keystroke (this.settings.get_boolean ("scroll-on-keystroke"));
             this.set_scroll_on_output (this.settings.get_boolean ("scroll-on-output"));
 
@@ -237,7 +236,7 @@ namespace TerminalPlugin {
                     this.set_cursor_shape (Vte.CursorShape.UNDERLINE);
                     break;
             }
-            
+
             if (!this.settings.get_boolean ("use-system-font")) {
                 this.set_font (Pango.FontDescription.from_string (this.settings.get_string ("font")));
             }
@@ -262,12 +261,13 @@ namespace TerminalPlugin {
             this.set_cursor_shape (Vte.CursorShape.BLOCK);
 
             // get values from keyfile
-            try{
+            try {
                 if (this.key_exist ("FontName")) {
                     font = this.profile_settings.get_string ("Configuration", "FontName");
                 }
                 if (this.key_exist ("ColorUseTheme")) {
-                    use_theme_colors = (bool) this.profile_settings.get_string ("Configuration", "ColorUseTheme").down ();
+                    use_theme_colors = (bool) this.profile_settings.get_string ("Configuration", "ColorUseTheme")
+                                            .down ();
                 }
                 if (!use_theme_colors) {
                     if (this.key_exist ("ColorForeground")) {
@@ -287,7 +287,7 @@ namespace TerminalPlugin {
                     string[] palette_colors = this.profile_settings.get_string_list ("Configuration", "ColorPalette");
                     if (palette_colors != null) {
                         for (int i = 0; i < palette_colors.length; i++) {
-                            var rgba = Gdk.RGBA();
+                            var rgba = Gdk.RGBA ();
                             rgba.parse (palette_colors[i]);
                             palette[i] = rgba;
                         }
@@ -356,8 +356,7 @@ namespace TerminalPlugin {
         private string accel_base = "<Actions>/XedTerminalPlugin/";
 
         public XedTerminalPanel () {
-            accels = 
-            {
+            accels = {
                 {"copy-clipboard",
                 Gdk.Key.C,
                 Gdk.ModifierType.CONTROL_MASK | Gdk.ModifierType.SHIFT_MASK},
@@ -367,12 +366,12 @@ namespace TerminalPlugin {
             };
             foreach (var accel in accels) {
                 string path = accel_base + accel.name;
-                Gtk.AccelKey key; 
+                Gtk.AccelKey key;
                 if (!Gtk.AccelMap.lookup_entry (path, out key)) {
                     Gtk.AccelMap.add_entry (path, accel.accel_key, accel.modifiers);
                 }
             }
-            
+
             this.add_terminal ();
         }
 
@@ -381,12 +380,12 @@ namespace TerminalPlugin {
             this.vte.show ();
             this.add (this.vte);
 
-            this.vte.child_exited.connect(this.on_vte_child_exited);
-            this.vte.key_press_event.connect(this.on_vte_key_press);
-            this.vte.button_press_event.connect(this.on_vte_button_press);
+            this.vte.child_exited.connect (this.on_vte_child_exited);
+            this.vte.key_press_event.connect (this.on_vte_key_press);
+            this.vte.button_press_event.connect (this.on_vte_button_press);
             this.vte.popup_menu.connect (this.on_vte_popup_menu);
         }
-        
+
         private void on_vte_child_exited (int status) {
             foreach (var child in this.get_children ()) {
                 child.destroy ();
@@ -394,15 +393,15 @@ namespace TerminalPlugin {
             this.add_terminal ();
             this.vte.grab_focus ();
         }
-        
+
         private bool on_vte_key_press (Gtk.Widget term, Gdk.EventKey event) {
             Gdk.ModifierType modifiers = event.state + Gtk.accelerator_get_default_mod_mask ();
-            if (event.keyval == Gdk.Key.Tab 
-                || event.keyval == Gdk.Key.KP_Tab 
+            if (event.keyval == Gdk.Key.Tab
+                || event.keyval == Gdk.Key.KP_Tab
                 || event.keyval == Gdk.Key.ISO_Left_Tab) {
                     if (modifiers == Gdk.ModifierType.CONTROL_MASK) {
                         return this.get_toplevel ().child_focus (Gtk.DirectionType.TAB_FORWARD);
-                    } else if (modifiers == Gdk.ModifierType.CONTROL_MASK 
+                    } else if (modifiers == Gdk.ModifierType.CONTROL_MASK
                         || modifiers == Gdk.ModifierType.SHIFT_MASK) {
                         return this.get_toplevel ().child_focus (Gtk.DirectionType.TAB_BACKWARD);
                     }
@@ -411,10 +410,10 @@ namespace TerminalPlugin {
             // manage copy/paste and clipboard accels actions and toggles focus between terminal and document
             foreach (var accel in accels) {
                 string path = accel_base + accel.name;
-                Gtk.AccelKey key; 
+                Gtk.AccelKey key;
                 bool accel_exist = Gtk.AccelMap.lookup_entry (path, out key);
-                if (accel_exist 
-                    && key.accel_key == event.keyval 
+                if (accel_exist
+                    && key.accel_key == event.keyval
                     && key.accel_mods == Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) {
                     switch (accel.name) {
                         case "copy-clipboard":
@@ -426,7 +425,7 @@ namespace TerminalPlugin {
             }
 
             string keyval_name = Gdk.keyval_name (Gdk.keyval_to_upper (event.keyval));
-            
+
             // Special case some Vte.Terminal shortcuts
             // so the global shortcuts do not override them
             if (modifiers == Gdk.ModifierType.CONTROL_MASK && keyval_name in "ACDEHKLRTUWZ") {
@@ -437,7 +436,7 @@ namespace TerminalPlugin {
                 return false;
             }
 
-            return Gtk.accel_groups_activate (this.get_toplevel(), event.keyval, modifiers);
+            return Gtk.accel_groups_activate (this.get_toplevel (), event.keyval, modifiers);
         }
 
         private bool on_vte_button_press (Gtk.Widget term, Gdk.Event event) {
@@ -462,19 +461,19 @@ namespace TerminalPlugin {
             copy.activate.connect (() => {
                 this.copy_clipboard ();
             });
-            copy.set_accel_path(this.accel_base + "copy-clipboard");
+            copy.set_accel_path (this.accel_base + "copy-clipboard");
             menu.append (copy);
             Gtk.MenuItem paste = new Gtk.MenuItem.with_label (_("Paste"));
             paste.activate.connect (() => {
                 this.paste_clipboard ();
             });
-            paste.set_accel_path(this.accel_base + "paste-clipboard");
+            paste.set_accel_path (this.accel_base + "paste-clipboard");
             menu.append (paste);
 
             this.populate_popup (menu);
 
             menu.show_all ();
-            return menu;            
+            return menu;
         }
 
         private void make_popup (Gdk.Event trigger_event) {
@@ -517,8 +516,7 @@ namespace TerminalPlugin {
 
         private GLib.Settings settings;
 
-        public ConfigTerminal () 
-        {
+        public ConfigTerminal () {
             GLib.Object ();
         }
 
@@ -527,7 +525,7 @@ namespace TerminalPlugin {
             this.settings = new GLib.Settings ("com.github.tudo75.xed-terminal-plugin");
 
             int grid_row = 0;
-            
+
             Gtk.Grid main_grid = new Gtk.Grid ();
             main_grid.set_valign (Gtk.Align.START);
             main_grid.set_margin_top (18);
@@ -555,7 +553,9 @@ namespace TerminalPlugin {
             main_grid.attach (instrucion_title_lbl, 0, grid_row, 1, 1);
             grid_row++;
 
-            Gtk.Label instrucions_lbl = new Gtk.Label (_("There are active accelerators for the copy/paste commands in terminal:"));
+            Gtk.Label instrucions_lbl = new Gtk.Label (
+                _("There are active accelerators for the copy/paste commands in terminal:")
+            );
             instrucions_lbl.set_halign (Gtk.Align.START);
             main_grid.attach (instrucions_lbl, 1, grid_row, 1, 1);
             grid_row++;
@@ -569,7 +569,7 @@ namespace TerminalPlugin {
             instrucions_paste_lbl.set_halign (Gtk.Align.START);
             main_grid.attach (instrucions_paste_lbl, 1, grid_row, 1, 1);
             grid_row++;
-            
+
             Gtk.Label main_lbl = new Gtk.Label ("");
             main_lbl.set_markup (_("<b>Main</b>"));
             main_lbl.set_halign (Gtk.Align.START);
@@ -577,14 +577,29 @@ namespace TerminalPlugin {
             grid_row++;
 
             Gtk.CheckButton custom_setting_check = new Gtk.CheckButton.with_label (_("Use custom settings"));
-            this.settings.bind ("use-custom-settings", custom_setting_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
+            this.settings.bind (
+                "use-custom-settings",
+                custom_setting_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
             main_grid.attach (custom_setting_check, 1, grid_row, 1, 1);
             grid_row++;
 
 
             Gtk.CheckButton allow_hyperlink_check = new Gtk.CheckButton.with_label (_("Allow cliccable hyperlinks"));
-            this.settings.bind ("allow-hyperlink", allow_hyperlink_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-custom-settings", allow_hyperlink_check, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "allow-hyperlink",
+                allow_hyperlink_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-custom-settings",
+                allow_hyperlink_check,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             main_grid.attach (allow_hyperlink_check, 1, grid_row, 1, 1);
             grid_row++;
 
@@ -599,18 +614,42 @@ namespace TerminalPlugin {
             main_grid.attach (custom_font_lbl, 0, grid_row, 1, 1);
 
             Gtk.CheckButton system_font_check = new Gtk.CheckButton ();
-            this.settings.bind ("use-system-font", system_font_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES | GLib.SettingsBindFlags.INVERT_BOOLEAN);
-            
+            this.settings.bind (
+                "use-system-font",
+                system_font_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT
+                    | GLib.SettingsBindFlags.GET_NO_CHANGES
+                    | GLib.SettingsBindFlags.INVERT_BOOLEAN
+            );
+
             Gtk.FontButton custom_font_chooser = new Gtk.FontButton ();
             custom_font_chooser.set_title (_("Choose a terminal font"));
-            this.settings.bind ("font", custom_font_chooser, "font-name", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-system-font", custom_font_chooser, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY | GLib.SettingsBindFlags.INVERT_BOOLEAN);
-            
-            Gtk.Grid font_grid = new Gtk.Grid();
+            this.settings.bind (
+                "font",
+                custom_font_chooser,
+                "font-name",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-system-font",
+                custom_font_chooser,
+                "sensitive",
+                GLib.SettingsBindFlags.GET
+                    | GLib.SettingsBindFlags.NO_SENSITIVITY
+                    | GLib.SettingsBindFlags.INVERT_BOOLEAN
+                );
+
+            Gtk.Grid font_grid = new Gtk.Grid ();
             font_grid.set_column_spacing (12);
-            font_grid.set_row_spacing(0);
+            font_grid.set_row_spacing (0);
             font_grid.set_margin_start (2);
-            this.settings.bind ("use-custom-settings", font_grid, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "use-custom-settings",
+                font_grid,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             font_grid.attach (system_font_check, 0, 0, 1, 1);
             font_grid.attach (custom_font_chooser, 1, 0, 1, 1);
             main_grid.attach (font_grid, 1, grid_row, 1, 1);
@@ -625,11 +664,21 @@ namespace TerminalPlugin {
             Gtk.Label cursor_shape_lbl = new Gtk.Label (_("Cursor shape"));
             cursor_shape_lbl.set_halign (Gtk.Align.END);
             main_grid.attach (cursor_shape_lbl, 0, grid_row, 1, 1);
-            Gtk.ComboBox cursor_shape_cb = this.create_combo ( 
-                        {_("Block"), _("IBeam"), _("Underline")}, 
+            Gtk.ComboBox cursor_shape_cb = this.create_combo (
+                        {_("Block"), _("IBeam"), _("Underline")},
                         {"block", "ibeam", "underline"});
-            this.settings.bind ("cursor-shape", cursor_shape_cb, "active-id", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-custom-settings", cursor_shape_cb, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "cursor-shape",
+                cursor_shape_cb,
+                "active-id",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-custom-settings",
+                cursor_shape_cb,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             main_grid.attach (cursor_shape_cb, 1, grid_row, 1, 1);
             grid_row++;
 
@@ -639,8 +688,18 @@ namespace TerminalPlugin {
             Gtk.ComboBox blink_mode_cb = this.create_combo (
                         {_("System"), _("On"), _("Off")},
                         {"system", "on", "off"});
-            this.settings.bind ("cursor-blink-mode", blink_mode_cb, "active-id", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-custom-settings", blink_mode_cb, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "cursor-blink-mode",
+                blink_mode_cb,
+                "active-id",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-custom-settings",
+                blink_mode_cb,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             main_grid.attach (blink_mode_cb, 1, grid_row, 1, 1);
             grid_row++;
 
@@ -651,8 +710,17 @@ namespace TerminalPlugin {
             grid_row++;
 
             Gtk.CheckButton bell_check = new Gtk.CheckButton.with_label (_("Terminal bell"));
-            this.settings.bind ("audible-bell", bell_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-custom-settings", bell_check, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "audible-bell",
+                bell_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-custom-settings",
+                bell_check,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
             main_grid.attach (bell_check, 1, grid_row, 1, 1);
             grid_row++;
 
@@ -662,15 +730,37 @@ namespace TerminalPlugin {
             main_grid.attach (colours_lbl, 0, grid_row, 2, 1);
             grid_row++;
 
-            Gtk.CheckButton bold_is_bright_check = new Gtk.CheckButton.with_label (_("Show bold text in bright colors"));
-            this.settings.bind ("bold-is-bright", bold_is_bright_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-custom-settings", bold_is_bright_check, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            Gtk.CheckButton bold_is_bright_check = new Gtk.CheckButton.with_label (
+                _("Show bold text in bright colors")
+            );
+            this.settings.bind (
+                "bold-is-bright",
+                bold_is_bright_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-custom-settings",
+                bold_is_bright_check,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             main_grid.attach (bold_is_bright_check, 1, grid_row, 1, 1);
             grid_row++;
 
             Gtk.CheckButton use_theme_colors_check = new Gtk.CheckButton.with_label (_("Use theme colors"));
-            this.settings.bind ("use-theme-colors", use_theme_colors_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-custom-settings", use_theme_colors_check, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "use-theme-colors",
+                use_theme_colors_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-custom-settings",
+                use_theme_colors_check,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             main_grid.attach (use_theme_colors_check, 1, grid_row, 1, 1);
             grid_row++;
 
@@ -687,34 +777,76 @@ namespace TerminalPlugin {
             grid_row++;
 
             Gtk.CheckButton scroll_keystroke_check = new Gtk.CheckButton.with_label (_("Scroll on keystroke"));
-            this.settings.bind ("scroll-on-keystroke", scroll_keystroke_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-custom-settings", scroll_keystroke_check, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "scroll-on-keystroke",
+                scroll_keystroke_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-custom-settings",
+                scroll_keystroke_check,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             main_grid.attach (scroll_keystroke_check, 1, grid_row, 1, 1);
             grid_row++;
 
             Gtk.CheckButton scroll_output_check = new Gtk.CheckButton.with_label (_("Scroll on output"));
-            this.settings.bind ("scroll-on-output", scroll_output_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("use-custom-settings", scroll_output_check, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "scroll-on-output",
+                scroll_output_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "use-custom-settings",
+                scroll_output_check,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             main_grid.attach (scroll_output_check, 1, grid_row, 1, 1);
             grid_row++;
-                
+
 
             Gtk.Label scroll_limit_lbl = new Gtk.Label (_("Scrollback limit"));
             scroll_limit_lbl.set_halign (Gtk.Align.END);
             main_grid.attach (scroll_limit_lbl, 0, grid_row, 1, 1);
-            
+
             Gtk.CheckButton scroll_unlimited_check = new Gtk.CheckButton ();
-            this.settings.bind ("scrollback-unlimited", scroll_unlimited_check, "active", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            
+            this.settings.bind (
+                "scrollback-unlimited",
+                scroll_unlimited_check,
+                "active",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+
             Gtk.SpinButton scrollback_lines = new Gtk.SpinButton.with_range (256.0, 10000.0, 10.0);
-            this.settings.bind ("scrollback-lines", scrollback_lines, "value", GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES);
-            this.settings.bind ("scrollback-unlimited", scrollback_lines, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY | GLib.SettingsBindFlags.INVERT_BOOLEAN);
-            
-            Gtk.Grid scroll_grid = new Gtk.Grid();
+            this.settings.bind (
+                "scrollback-lines",
+                scrollback_lines,
+                "value",
+                GLib.SettingsBindFlags.DEFAULT | GLib.SettingsBindFlags.GET_NO_CHANGES
+            );
+            this.settings.bind (
+                "scrollback-unlimited",
+                scrollback_lines,
+                "sensitive",
+                GLib.SettingsBindFlags.GET
+                    | GLib.SettingsBindFlags.NO_SENSITIVITY
+                    | GLib.SettingsBindFlags.INVERT_BOOLEAN
+            );
+
+            Gtk.Grid scroll_grid = new Gtk.Grid ();
             scroll_grid.set_column_spacing (12);
-            scroll_grid.set_row_spacing(0);
+            scroll_grid.set_row_spacing (0);
             scroll_grid.set_margin_start (2);
-            this.settings.bind ("use-custom-settings", scroll_grid, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "use-custom-settings",
+                scroll_grid,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
             scroll_grid.attach (scroll_unlimited_check, 0, 0, 1, 1);
             scroll_grid.attach (scrollback_lines, 1, 0, 1, 1);
             main_grid.attach (scroll_grid, 1, grid_row, 1, 1);
@@ -725,9 +857,9 @@ namespace TerminalPlugin {
 
         private Gtk.Grid add_primary_colours_grid () {
             int grid_row = 0;
-            Gtk.Grid grid = new Gtk.Grid();
+            Gtk.Grid grid = new Gtk.Grid ();
             grid.set_column_spacing (12);
-            grid.set_row_spacing(0);
+            grid.set_row_spacing (0);
 
             Gdk.RGBA bg_color = Gdk.RGBA ();
             bg_color.parse (this.settings.get_string ("color-background"));
@@ -737,14 +869,25 @@ namespace TerminalPlugin {
             bg_color_btn.color_set.connect (() => {
                 Gdk.RGBA rgba = bg_color_btn.get_rgba ();
                 string color = "#%02X%02X%02X";
-                string hex_color = color.printf ((int)(rgba.red*255), (int)(rgba.green*255), (int)(rgba.blue*255));
+                string hex_color = color.printf (
+                    (int) (rgba.red * 255),
+                    (int) (rgba.green * 255),
+                    (int) (rgba.blue * 255)
+                );
                 this.settings.set_string (bg_color_btn.get_name (), hex_color);
                 print ("Color set: %s\t%s\n", rgba.to_string (), hex_color);
             });
-            this.settings.bind ("use-theme-colors", bg_color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY | GLib.SettingsBindFlags.INVERT_BOOLEAN);
+            this.settings.bind (
+                "use-theme-colors",
+                bg_color_btn,
+                "sensitive",
+                GLib.SettingsBindFlags.GET
+                    | GLib.SettingsBindFlags.NO_SENSITIVITY
+                    | GLib.SettingsBindFlags.INVERT_BOOLEAN
+            );
             // this.settings.bind ("use-custom-settings", bg_color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
             grid.attach (bg_color_btn, 0, grid_row, 1, 1);
-            grid.attach (new Gtk.Label(_("Background")), 1, grid_row, 1, 1);
+            grid.attach (new Gtk.Label (_("Background")), 1, grid_row, 1, 1);
 
             Gtk.Label spacer_lbl = new Gtk.Label (" ");
             spacer_lbl.set_hexpand (true);
@@ -758,24 +901,40 @@ namespace TerminalPlugin {
             fg_color_btn.color_set.connect (() => {
                 Gdk.RGBA rgba = fg_color_btn.get_rgba ();
                 string color = "#%02X%02X%02X";
-                string hex_color = color.printf ((int)(rgba.red*255), (int)(rgba.green*255), (int)(rgba.blue*255));
+                string hex_color = color.printf (
+                    (int) (rgba.red * 255),
+                    (int) (rgba.green * 255),
+                    (int) (rgba.blue * 255)
+                );
                 this.settings.set_string (fg_color_btn.get_name (), hex_color);
                 print ("Color set: %s\t%s\n", rgba.to_string (), hex_color);
             });
-            this.settings.bind ("use-theme-colors", fg_color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY | GLib.SettingsBindFlags.INVERT_BOOLEAN);
+            this.settings.bind (
+                "use-theme-colors",
+                fg_color_btn,
+                "sensitive",
+                GLib.SettingsBindFlags.GET
+                    | GLib.SettingsBindFlags.NO_SENSITIVITY
+                    | GLib.SettingsBindFlags.INVERT_BOOLEAN
+            );
             // this.settings.bind ("use-custom-settings", fg_color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
             grid.attach (fg_color_btn, 3, grid_row, 1, 1);
-            grid.attach (new Gtk.Label(_("Foreground")), 4, grid_row, 1, 1);
+            grid.attach (new Gtk.Label (_("Foreground")), 4, grid_row, 1, 1);
 
-            this.settings.bind ("use-custom-settings", grid, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "use-custom-settings",
+                grid,
+                "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
 
             return grid;
         }
 
         private Gtk.Grid add_colours_grid () {
-            Gtk.Grid grid = new Gtk.Grid();
+            Gtk.Grid grid = new Gtk.Grid ();
             grid.set_column_spacing (12);
-            grid.set_row_spacing(6);
+            grid.set_row_spacing (6);
 
             string[] palette = this.settings.get_strv ("palette");
 
@@ -789,10 +948,21 @@ namespace TerminalPlugin {
                     Gdk.RGBA rgba = color_btn.get_rgba ();
                     string color_mask = "#%02X%02X%02X";
                     string[] tmp_palette = this.settings.get_strv ("palette");
-                    tmp_palette[color_btn.get_data<int> ("index_key")] = color_mask.printf ((int)(rgba.red*255), (int)(rgba.green*255), (int)(rgba.blue*255));
+                    tmp_palette[color_btn.get_data<int> ("index_key")] = color_mask.printf (
+                        (int) (rgba.red * 255),
+                        (int) (rgba.green * 255),
+                        (int) (rgba.blue * 255)
+                    );
                     this.settings.set_strv ("palette", tmp_palette);
                 });
-                this.settings.bind ("use-theme-colors", color_btn, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY | GLib.SettingsBindFlags.INVERT_BOOLEAN);
+                this.settings.bind (
+                    "use-theme-colors",
+                    color_btn,
+                    "sensitive",
+                    GLib.SettingsBindFlags.GET
+                        | GLib.SettingsBindFlags.NO_SENSITIVITY
+                        | GLib.SettingsBindFlags.INVERT_BOOLEAN
+                );
                 if (i < 8) {
                     grid.attach (color_btn, i, 0, 1, 1);
                 } else {
@@ -805,7 +975,11 @@ namespace TerminalPlugin {
             Gtk.Label light_colors_lbl = new Gtk.Label (_("Light colors"));
             grid.attach (light_colors_lbl, 8, 1, 1, 1);
 
-            this.settings.bind ("use-custom-settings", grid, "sensitive", GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY);
+            this.settings.bind (
+                "use-custom-settings",
+                grid, "sensitive",
+                GLib.SettingsBindFlags.GET | GLib.SettingsBindFlags.NO_SENSITIVITY
+            );
 
             return grid;
         }
